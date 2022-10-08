@@ -23,7 +23,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: executable_file
-        path: main.out
+        path: build/fib
   test:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
