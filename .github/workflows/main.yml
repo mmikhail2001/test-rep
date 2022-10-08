@@ -1,14 +1,14 @@
 on: push
 
 jobs:
-  # check:
-  #   runs-on: ubuntu-latest
-  #   container: leshiy1295/gcc_linters
-  #   steps:
-  #     - uses: actions/checkout@v2 
-  #     - run: ls
-  #     - run: pwd
-  #     - run: make check
+  check:
+    runs-on: ubuntu-latest
+    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    steps:
+      - uses: actions/checkout@v2 
+      - run: ls
+      - run: pwd
+      - run: make check
   build:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
@@ -19,13 +19,24 @@ jobs:
     - run: ls
     - run: pwd
     - run: make build
-  # test:
-  #   runs-on: ubuntu-latest
-  #   container: leshiy1295/gcc_linters
-  #   needs: [build]
-  #   steps:
-  #     - uses: actions/checkout@v2 
-  #     - run: make test
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: executable_file
+        path: main.out
+  test:
+    runs-on: ubuntu-latest
+    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    needs: [build]
+    steps:
+      # - uses: actions/checkout@v2 
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: executable_file
+      - run: ls
+      - run: pwd
+      - run: make test
   # fun:
   #   runs-on: ubuntu-latest
 
