@@ -8,21 +8,21 @@ check:
       - uses: actions/checkout@v2 
       - run: ls
       - run: pwd
-      - run: make check
-  build:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters
-    needs: [check]
-    steps:
-    - uses: actions/checkout@v2 
-    - run: make build
-  test:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2 
-      - run: make test
+      # - run: make check
+  # build:
+  #   runs-on: ubuntu-latest
+  #   container: leshiy1295/gcc_linters
+  #   needs: [check]
+  #   steps:
+  #   - uses: actions/checkout@v2 
+    # - run: make build
+  # test:
+  #   runs-on: ubuntu-latest
+  #   container: leshiy1295/gcc_linters
+  #   needs: [build]
+  #   steps:
+  #     - uses: actions/checkout@v2 
+      # - run: make test
   fun:
     runs-on: ubuntu-latest
 
