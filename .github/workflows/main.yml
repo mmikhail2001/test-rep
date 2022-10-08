@@ -1,7 +1,7 @@
 on: push
 
 jobs:
-check:
+  check:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters
     steps:
