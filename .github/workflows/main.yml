@@ -28,13 +28,16 @@ jobs:
     # needs: [build]
     steps:
       - uses: actions/checkout@v2 
-      # - name: Download artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: executable_file
-
       - run: make build TEST_OPT=ON
       - run: make test
+      - run: |
+          cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
+          genhtml -o report coverage.info
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-info
+          path: build/report
   # fun:
   #   runs-on: ubuntu-latest
 
@@ -44,7 +47,7 @@ jobs:
   #     - name: Run a one-line script
   #       run: echo Hello, world!
 
-  #     - name: Run a multi-line script
-  #       run: |
-  #         echo Add other actions to build,
-  #         echo test, and deploy your project.
+      # - name: Run a multi-line script
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project.
