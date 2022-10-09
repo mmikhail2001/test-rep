@@ -29,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
       - run: make build TEST_OPT=ON
+      - run: apt-get install lcov -y
       - run: make test
       - run: |
           cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
