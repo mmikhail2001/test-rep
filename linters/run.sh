@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
+echo hello
+# set -o pipefail
 
-set -o pipefail
+# function print_header() {
+#     echo -e "\n***** ${1} *****"
+# }
 
-function print_header() {
-    echo -e "\n***** ${1} *****"
-}
+# function check_log() {
+#     LOG=$( { ${1}; } 2>&1 )
+#     STATUS=$?
+#     echo "$LOG"
+#     if echo "$LOG" | grep -q -E "${2}"
+#     then
+#         exit 1
+#     fi
 
-function check_log() {
-    LOG=$( { ${1}; } 2>&1 )
-    STATUS=$?
-    echo "$LOG"
-    if echo "$LOG" | grep -q -E "${2}"
-    then
-        exit 1
-    fi
-
-    if [ $STATUS -ne 0 ]
-    then
-        exit $STATUS
-    fi
-}
+#     if [ $STATUS -ne 0 ]
+#     then
+#         exit $STATUS
+#     fi
+# }
 
 # # ********** cppcheck ********** 
 # print_header "RUN cppcheck"
@@ -35,4 +35,4 @@ function check_log() {
 # print_header "RUN cpplint"
 # check_log "cpplint --extensions=cpp *.cpp fib_lib/src/*.cpp fib_lib/tests/*.cpp"    "Can't open for reading"
 # check_log "cpplint --extensions=h   fib_lib/include/*.h"                        "Can't open for reading"
-print_header "SUCCESS"
+# print_header "SUCCESS"
