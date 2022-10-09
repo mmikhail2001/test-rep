@@ -27,4 +27,5 @@ test: ${TARGET}
 
 # проверяет исходный код
 check:
+	chmod u+x run_linters.sh
 	./run_linters.sh
