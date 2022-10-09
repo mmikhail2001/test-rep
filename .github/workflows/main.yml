@@ -3,12 +3,10 @@ on: push
 jobs:
   check:
     runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    container: andeo1812/gcc_check_gtest
     steps:
       - uses: actions/checkout@v2 
-      - run: |
-          chmod u+x linters/run.sh
-          make check
+      - run: make check
   build:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest

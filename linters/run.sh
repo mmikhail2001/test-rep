@@ -1,12 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -o pipefail
 
-# set -o pipefail
-
-function print_header {
+function print_header() {
     echo -e "\n***** ${1} *****"
 }
 
-function check_log {
+function check_log() {
     LOG=$( { ${1}; } 2>&1 )
     STATUS=$?
     echo "$LOG"

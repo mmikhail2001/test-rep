@@ -27,4 +27,4 @@ test: ${TARGET}
 
 # проверяет исходный код
 check:
-	sh ./linters/run.sh
+	./linters/run.sh
