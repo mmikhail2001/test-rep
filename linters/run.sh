@@ -28,12 +28,12 @@
 # # ********** clang-tidy ********** 
 # print_header "RUN clang-tidy"
 # check_log "clang-tidy main.cpp fib_lib/src/*.cpp  fib_lib/tests/*.cpp  -warnings-as-errors=* -extra-arg=-std=c++17 -- -Ifib_lib/include -x c++" "Error (?:reading|while processing)"
-# # fib_lib/include/*.h
+# fib_lib/include/*.h
 
 
 # # ********** cpplint ********** 
 # print_header "RUN cpplint"
 # check_log "cpplint --extensions=cpp *.cpp fib_lib/src/*.cpp fib_lib/tests/*.cpp"    "Can't open for reading"
 # check_log "cpplint --extensions=h   fib_lib/include/*.h"                        "Can't open for reading"
-
-print_header "SUCCESS"
+echo hello 
+# print_header "SUCCESS"
