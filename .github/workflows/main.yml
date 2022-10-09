@@ -6,8 +6,9 @@ jobs:
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
     steps:
       - uses: actions/checkout@v2 
-      - run: chmod u+x linters/run.sh
-      - run: make check
+      - run: |
+          chmod u+x linters/run.sh
+          make check
   build:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
