@@ -23,7 +23,7 @@ function check_log() {
 
 # ********** cppcheck ********** 
 print_header "RUN cppcheck"
-check_log "cppcheck main.cpp fib_lib/src fib_lib/include fib_lib/tests --enable=all --inconclusive --error-exitcode=1 -Ifib_lib --suppress=missingIncludeSystem" "\(information\)"
+check_log "cppcheck main.cpp fib_lib/src fib_lib/include fib_lib/tests --enable=all --inconclusive --error-exitcode=1 -Ifib_lib/include --suppress=missingIncludeSystem" "\(information\)"
 
 # ********** clang-tidy ********** 
 print_header "RUN clang-tidy"
