@@ -13,14 +13,11 @@ jobs:
     # needs: [check]
     steps:
     - uses: actions/checkout@v2 
-    - run: cmake --version
-    - run: ls
-    - run: pwd
     - run: make build
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: executable_file
+        name: executable-file
         path: build/fib
   test:
     runs-on: ubuntu-latest

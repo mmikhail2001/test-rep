@@ -23,7 +23,7 @@ run: ${TARGET}
 
 # выполняется, если проект собран
 test: ${TARGET}
-	cd ${BUILD_DIR}/${LIB} && ctest
+	cd ${BUILD_DIR} && ctest
 
 # проверяет исходный код
 check:

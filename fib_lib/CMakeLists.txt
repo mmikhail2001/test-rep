@@ -5,12 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wall -Wextra -Wpedantic -Werror")
 
 if(TEST_OPT)
-    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov" )
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -fPIC -O0")
 elseif(DEBUG)
-    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fPIC -O0")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fPIC -O0")
 else()
-    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fPIC -O3")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fPIC -O3")
 endif()
 
 # можно внутри библиотеки файлы разделять папками
@@ -22,12 +21,7 @@ add_library(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
-set(FIB_LIB_LIBRARIES       ${PROJECT_NAME})
+# set(FIB_LIB_LIBRARIES       ${PROJECT_NAME})
 set(FIB_LIB_LIBRARIES       ${PROJECT_NAME}     PARENT_SCOPE)
 set(FIB_LIB_INCLUDE_DIRS    ${INCLUDE_DIRS}     PARENT_SCOPE)
-set(FIB_LIB_INCLUDE_DIRS    ${INCLUDE_DIRS})
-
-if (TEST_OPT)
-    enable_testing()
-    add_subdirectory(tests)
-endif()
+# set(FIB_LIB_INCLUDE_DIRS    ${INCLUDE_DIRS})

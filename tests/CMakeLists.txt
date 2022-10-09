@@ -13,7 +13,6 @@ find_package(GTest REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${FIB_LIB_INCLUDE_DIRS})
-
 target_link_libraries(${PROJECT_NAME} ${FIB_LIB_LIBRARIES} GTest::GTest gtest_main)
 # GTest::gtest_main
 

@@ -18,3 +18,9 @@ endif()
 target_include_directories(${PROJECT_NAME} PUBLIC ${FIB_LIB_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${FIB_LIB_LIBRARIES})
 
+if (TEST_OPT)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+
+
