@@ -6,8 +6,6 @@ jobs:
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
     steps:
       - uses: actions/checkout@v2 
-      - run: ls
-      - run: pwd
       - run: make check
   build:
     runs-on: ubuntu-latest
@@ -27,15 +25,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
-    needs: [build]
+    # needs: [build]
     steps:
-      # - uses: actions/checkout@v2 
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: executable_file
-      - run: ls
-      - run: pwd
+      - uses: actions/checkout@v2 
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: executable_file
+
+      - run: make build TEST_OPT=ON
       - run: make test
   # fun:
   #   runs-on: ubuntu-latest

@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 
-extern "C" {
-    #include "fib.h"
-}
+#include "fib.h"
 
 TEST(Fib, TestBasics) {
     EXPECT_EQ(1, fib(1));
