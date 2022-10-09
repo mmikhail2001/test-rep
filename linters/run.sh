@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -o pipefail
+# set -o pipefail
 
 function print_header() {
     echo -e "\n***** ${1} *****"
