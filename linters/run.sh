@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
-set -o pipefail
+# set -o pipefail
 
-function print_header() {
-    echo -e "\n***** ${1} *****"
-}
+# function print_header() {
+#     echo -e "\n***** ${1} *****"
+# }
 
-function check_log() {
-    LOG=$( { ${1}; } 2>&1 )
-    STATUS=$?
-    echo "$LOG"
-    if echo "$LOG" | grep -q -E "${2}"
-    then
-        exit 1
-    fi
+# function check_log() {
+#     LOG=$( { ${1}; } 2>&1 )
+#     STATUS=$?
+#     echo "$LOG"
+#     if echo "$LOG" | grep -q -E "${2}"
+#     then
+#         exit 1
+#     fi
 
-    if [ $STATUS -ne 0 ]
-    then
-        exit $STATUS
-    fi
-}
+#     if [ $STATUS -ne 0 ]
+#     then
+#         exit $STATUS
+#     fi
+# }
 
-# ********** cppcheck ********** 
-print_header "RUN cppcheck"
-check_log "cppcheck main.cpp fib_lib/src fib_lib/include fib_lib/tests --enable=all --inconclusive --error-exitcode=1 -Ifib_lib/include --suppress=missingIncludeSystem" "\(information\)"
+# # ********** cppcheck ********** 
+# print_header "RUN cppcheck"
+# check_log "cppcheck main.cpp fib_lib/src fib_lib/include fib_lib/tests --enable=all --inconclusive --error-exitcode=1 -Ifib_lib/include --suppress=missingIncludeSystem" "\(information\)"
 
 # # ********** clang-tidy ********** 
 # print_header "RUN clang-tidy"
