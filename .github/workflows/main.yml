@@ -7,38 +7,38 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
       - run: make check
-  build:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
-    # needs: [check]
-    steps:
-    - uses: actions/checkout@v2 
-    - run: cmake --version
-    - run: ls
-    - run: pwd
-    - run: make build
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: executable_file
-        path: build/fib
-  test:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
-    # needs: [build]
-    steps:
-      - uses: actions/checkout@v2 
-      - run: make build TEST_OPT=ON
-      - run: apt-get install lcov -y
-      - run: make test
-      - run: |
-          cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
-          genhtml -o report coverage.info
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-info
-          path: build/report
+  # build:
+  #   runs-on: ubuntu-latest
+  #   container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+  #   # needs: [check]
+  #   steps:
+  #   - uses: actions/checkout@v2 
+  #   - run: cmake --version
+  #   - run: ls
+  #   - run: pwd
+  #   - run: make build
+  #   - name: Upload artifacts
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: executable_file
+  #       path: build/fib
+  # test:
+  #   runs-on: ubuntu-latest
+  #   container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+  #   # needs: [build]
+  #   steps:
+  #     - uses: actions/checkout@v2 
+  #     - run: make build TEST_OPT=ON
+  #     - run: apt-get install lcov -y
+  #     - run: make test
+  #     - run: |
+  #         cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
+  #         genhtml -o report coverage.info
+  #     - name: Upload artifacts
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: coverage-info
+  #         path: build/report
   # fun:
   #   runs-on: ubuntu-latest
 
