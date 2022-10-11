@@ -41,11 +41,11 @@ jobs:
           name: coverage-info
           path: build/report
       - name: launch valgrind
-      - run: |
+        run: |
           cd build
           valgrind --tool=memcheck --leak-check=yes ./fib
       - name: launch sanitizer
-      - run: |
+        run: |
           make build SANITIZE_OPT=ON
           make run
 
