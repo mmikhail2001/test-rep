@@ -32,8 +32,7 @@ jobs:
       - run: make test
       - name: Test coverage
         run: |
-          cd build
-          lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
+          cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
           genhtml -o report coverage.info
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
