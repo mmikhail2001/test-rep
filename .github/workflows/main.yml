@@ -13,9 +13,6 @@ jobs:
     # needs: [check]
     steps:
     - uses: actions/checkout@v2 
-    - run: cmake --version
-    - run: ls
-    - run: pwd
     - run: make build
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
@@ -28,8 +25,10 @@ jobs:
     # needs: [build]
     steps:
       - uses: actions/checkout@v2 
+      - name: install lcov
+        run: apt-get install lcov -y
       - run: make build TEST_OPT=ON
-      - run: apt-get install lcov -y
+      - run: make run
       - run: make test
       - run: |
           cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
@@ -39,6 +38,8 @@ jobs:
         with:
           name: coverage-info
           path: build/report
+      - name: launch valgrind
+        run: cd build && valgrind --tool=memcheck --leak-check=yes ./fib
   # fun:
   #   runs-on: ubuntu-latest
 

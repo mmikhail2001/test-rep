@@ -4,7 +4,7 @@ project(fib)
 set(CMAKE_CXX_STANDARD 17)
 
 option(TEST_OPT "build test version" OFF)
-option(DEBUG "build debug version" ON)
+option(DEBUG_OPT "build debug version" ON)
 
 add_subdirectory(fib_lib)
 
