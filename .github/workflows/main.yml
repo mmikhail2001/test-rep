@@ -47,7 +47,12 @@ jobs:
         run: |
           make build SANITIZE_OPT=ON
           make run || exit 0
-
+      - name: launch scan-build
+        run: |
+          apt-get install clang-tools
+          make build
+          cd build
+          scan-build make
 
   # fun:
   #   runs-on: ubuntu-latest
