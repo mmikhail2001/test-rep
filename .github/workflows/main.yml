@@ -30,8 +30,10 @@ jobs:
       - run: make build TEST_OPT=ON
       - run: make run
       - run: make test
-      - run: |
-          cd build && lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
+      - name: Test coverage
+        run: |
+          cd build
+          lcov -t "tests_fib" -o coverage.info -c -d fib_lib/CMakeFiles
           genhtml -o report coverage.info
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
@@ -39,7 +41,15 @@ jobs:
           name: coverage-info
           path: build/report
       - name: launch valgrind
-        run: cd build && valgrind --tool=memcheck --leak-check=yes ./fib
+      - run: |
+          cd build
+          valgrind --tool=memcheck --leak-check=yes ./fib
+      - name: launch sanitizer
+      - run: |
+          make build SANITIZE_OPT=ON
+          make run
+
+
   # fun:
   #   runs-on: ubuntu-latest
 

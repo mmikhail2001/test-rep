@@ -14,6 +14,11 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -O3")
 endif()
 
+if(SANITIZE_OPT)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined" )
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined")
+endif()
+
 file(GLOB_RECURSE SOURCES       src/*.cpp)
 file(GLOB_RECURSE INCLUDE_DIRS  ${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB_RECURSE HEADERS       ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)

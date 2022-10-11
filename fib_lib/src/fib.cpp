@@ -1,6 +1,9 @@
 #include "fib.h"
 
 int fib(int n) {
+    // SANITIZE_OPT = ON
+    char *buf = new char[2];
+    buf[2] = 'f';
     if (n <= 1) {
         return n;
     }
