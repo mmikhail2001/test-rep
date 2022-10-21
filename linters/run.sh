@@ -2,6 +2,11 @@
 
 set -o pipefail
 
+SRC_PATHS="main.cpp fib_lib/src/*.cpp"
+INCLUDE_PATHS="fib_lib/include/*.h"
+INCLUDE_DIRECTORIES="fib_lib/include"
+TESTS_PATHS="fib_lib/tests/*.cpp"
+
 function print_header() {
     echo -e "\n***** ${1} *****"
 }
@@ -23,16 +28,15 @@ function check_log() {
 
 # ********** cppcheck ********** 
 print_header "RUN cppcheck"
-check_log "cppcheck main.cpp fib_lib/src fib_lib/include fib_lib/tests --enable=all --inconclusive --error-exitcode=1 -Ifib_lib/include --suppress=missingIncludeSystem" "\(information\)"
+check_log "cppcheck ${SRC_PATHS} ${INCLUDE_PATHS} ${TESTS_PATHS} --enable=all --inconclusive --error-exitcode=1 -I${INCLUDE_DIRECTORIES} --suppress=missingIncludeSystem" "\(information\)"
 
 # # ********** clang-tidy ********** 
 print_header "RUN clang-tidy"
-check_log "clang-tidy main.cpp fib_lib/src/*.cpp  fib_lib/tests/*.cpp  -warnings-as-errors=* -extra-arg=-std=c++17 -- -Ifib_lib/include -x c++" "Error (?:reading|while processing)"
-# fib_lib/include/*.h
+check_log "clang-tidy ${SRC_PATHS} ${TESTS_PATHS} -warnings-as-errors=* -extra-arg=-std=c++17 -- -I${INCLUDE_DIRECTORIES} -x c++" "Error (?:reading|while processing)"
 
 
 # # ********** cpplint ********** 
 print_header "RUN cpplint"
-check_log "cpplint --extensions=cpp *.cpp fib_lib/src/*.cpp fib_lib/tests/*.cpp"    "Can't open for reading"
-check_log "cpplint --extensions=h   fib_lib/include/*.h"                        "Can't open for reading"
+check_log "cpplint --extensions=cpp ${SRC_PATHS} ${TESTS_PATHS}"    "Can't open for reading"
+check_log "cpplint --extensions=h   ${INCLUDE_PATHS}"               "Can't open for reading"
 print_header "SUCCESS"
