@@ -41,7 +41,7 @@ jobs:
         run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
-          ./codecov -t 9c6b2de0-8ef6-4582-8ed0-0a04e57e756b
+          ./codecov -t ${{ secrets.token_codecov }}
       - name: launch valgrind tests
         run: make valgrind_tests  
       - name: launch valgrind target
