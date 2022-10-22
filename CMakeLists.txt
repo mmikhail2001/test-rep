@@ -3,9 +3,9 @@ project(fib)
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(TEST_OPT "build test version" OFF)
-option(DEBUG_OPT "build debug version" ON)
-option(SANITIZE_OPT "build with flags -fsanitize" OFF)
+option(TEST_OPT     "build test version"            OFF)
+option(DEBUG_OPT    "build debug version"           ON)
+option(SANITIZE_OPT "build with flags -fsanitize"   OFF)
 
 add_subdirectory(fib_lib)
 
@@ -21,7 +21,11 @@ if(SANITIZE_OPT)
 endif()
 
 
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${FIB_LIB_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${FIB_LIB_LIBRARIES})
+
+if (TEST_OPT)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 

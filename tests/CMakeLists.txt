@@ -15,11 +15,5 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${FIB_LIB_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} ${FIB_LIB_LIBRARIES} GTest::GTest gtest_main)
-# GTest::gtest_main
-
-# add_test(
-#     NAME ${PROJECT_NAME}
-#     COMMAND ${PROJECT_NAME}
-# )
 
 gtest_discover_tests(${PROJECT_NAME})

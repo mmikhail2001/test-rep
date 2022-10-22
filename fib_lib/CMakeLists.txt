@@ -19,21 +19,14 @@ if(SANITIZE_OPT)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined")
 endif()
 
-file(GLOB_RECURSE SOURCES       src/*.cpp)
-file(GLOB_RECURSE INCLUDE_DIRS  ${CMAKE_CURRENT_SOURCE_DIR}/include)
-file(GLOB_RECURSE HEADERS       ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+file(GLOB_RECURSE   SOURCES       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB           INCLUDE_DIRS  ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_library(${PROJECT_NAME} ${SOURCES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS})
 
-# без   PARENT_SCOPE для тестов
-# с     PARENT_SCOPE для главного CMakeLists.txt
-set(FIB_LIB_LIBRARIES       ${PROJECT_NAME}                 )
+message("SOURCES =          ${SOURCES}")
+message("INCLUDE_DIRS =     ${INCLUDE_DIRS}")
+
 set(FIB_LIB_LIBRARIES       ${PROJECT_NAME}     PARENT_SCOPE)
 set(FIB_LIB_INCLUDE_DIRS    ${INCLUDE_DIRS}     PARENT_SCOPE)
-set(FIB_LIB_INCLUDE_DIRS    ${INCLUDE_DIRS}                 )
-
-if (TEST_OPT)
-    enable_testing()
-    add_subdirectory(tests)
-endif()
