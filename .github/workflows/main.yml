@@ -6,15 +6,17 @@ jobs:
     container: mikhail2001/young_devs_image
     steps:
       - uses: actions/checkout@v2 
-      - run: make check || exit 0
+      - name: GO LINTER CHECK
+        run: make check || exit 0
   build:
     runs-on: ubuntu-latest
     container: mikhail2001/young_devs_image
     # needs: [check]
     steps:
     - uses: actions/checkout@v2 
-    - run: make build
-    - name: Upload artifacts
+    - name: GO BUILD
+      run: make build
+    - name: Upload artifacts (EXECUTABLE FILE)
       uses: actions/upload-artifact@v2
       with:
         name: executable-file
@@ -28,27 +30,27 @@ jobs:
       - run: make build TEST_OPT=ON
       - run: make run
       - run: make test
-      - name: Test coverage
+      - name: GO TEST COVERAGE
         run: make coverage
-      - name: Upload artifacts
+      - name: Upload artifacts (COVERAGE REPORT) 
         uses: actions/upload-artifact@v2
         with:
-          name: coverage-info
+          name: coverage-report
           path: build/report
-      - name: Upload coverage reports to Codecov
+      - name: CODECOV PANEL ON README
         run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           ./codecov -t ${{ secrets.token_codecov }}
-      - name: launch valgrind tests
+      - name: GO VALGRIND TESTS
         run: make valgrind_tests  
-      - name: launch valgrind target
+      - name: GO VALGRIND TARGET
         run: make valgrind_target  
-      - name: launch sanitizer
+      - name: GO SANITIZER
         run: |
           make build SANITIZE_OPT=ON
           make run
-      - name: launch scan-build
+      - name: GO SCAN-BUILD
         run: |
           make build
           make scan_build
