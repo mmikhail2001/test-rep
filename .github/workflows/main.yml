@@ -1,24 +1,24 @@
 on: push
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    container: andeo1812/gcc_check_gtest
-    steps:
-      - uses: actions/checkout@v2 
-      - run: make check || exit 0
-  build:
-    runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
-    # needs: [check]
-    steps:
-    - uses: actions/checkout@v2 
-    - run: make build
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: executable-file
-        path: build/fib
+  # check:
+  #   runs-on: ubuntu-latest
+  #   container: andeo1812/gcc_check_gtest
+  #   steps:
+  #     - uses: actions/checkout@v2 
+  #     - run: make check || exit 0
+  # build:
+  #   runs-on: ubuntu-latest
+  #   container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+  #   # needs: [check]
+  #   steps:
+  #   - uses: actions/checkout@v2 
+  #   - run: make build
+  #   - name: Upload artifacts
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: executable-file
+  #       path: build/fib
   test:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
@@ -37,6 +37,11 @@ jobs:
         with:
           name: coverage-info
           path: build/report
+      - name: Upload coverage reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t 9c6b2de0-8ef6-4582-8ed0-0a04e57e756b
       - name: launch valgrind tests
         run: make valgrind_tests  
       - name: launch valgrind target
@@ -50,11 +55,6 @@ jobs:
           apt-get install clang-tools
           make build
           make scan_build
-      - name: Upload coverage reports to Codecov
-        run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t 9c6b2de0-8ef6-4582-8ed0-0a04e57e756b
 
   # fun:
   #   runs-on: ubuntu-latest
