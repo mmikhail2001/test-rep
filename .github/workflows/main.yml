@@ -1,24 +1,24 @@
 on: push
 
 jobs:
-  # check:
-  #   runs-on: ubuntu-latest
-  #   container: andeo1812/gcc_check_gtest
-  #   steps:
-  #     - uses: actions/checkout@v2 
-  #     - run: make check || exit 0
-  # build:
-  #   runs-on: ubuntu-latest
-  #   container: leshiy1295/gcc_linters_valgrind_cmake_gtest
-  #   # needs: [check]
-  #   steps:
-  #   - uses: actions/checkout@v2 
-  #   - run: make build
-  #   - name: Upload artifacts
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: executable-file
-  #       path: build/fib
+  check:
+    runs-on: ubuntu-latest
+    container: andeo1812/gcc_check_gtest
+    steps:
+      - uses: actions/checkout@v2 
+      - run: make check || exit 0
+  build:
+    runs-on: ubuntu-latest
+    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    # needs: [check]
+    steps:
+    - uses: actions/checkout@v2 
+    - run: make build
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: executable-file
+        path: build/fib
   test:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters_valgrind_cmake_gtest
@@ -55,17 +55,3 @@ jobs:
           apt-get install clang-tools
           make build
           make scan_build
-
-  # fun:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Run a one-line script
-  #       run: echo Hello, world!
-
-      # - name: Run a multi-line script
-      #   run: |
-      #     echo Add other actions to build,
-      #     echo test, and deploy your project.

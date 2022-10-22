@@ -4,8 +4,9 @@ set -o pipefail
 
 SRC_PATHS="main.cpp fib_lib/src/*.cpp"
 INCLUDE_PATHS="fib_lib/include/*.h"
+TESTS_PATHS="tests/*.cpp"
+
 INCLUDE_DIRECTORIES="fib_lib/include"
-TESTS_PATHS="fib_lib/tests/*.cpp"
 
 function print_header() {
     echo -e "\n***** ${1} *****"
@@ -39,4 +40,10 @@ check_log "clang-tidy ${SRC_PATHS} ${TESTS_PATHS} -warnings-as-errors=* -extra-a
 print_header "RUN cpplint"
 check_log "cpplint --extensions=cpp ${SRC_PATHS} ${TESTS_PATHS}"    "Can't open for reading"
 check_log "cpplint --extensions=h   ${INCLUDE_PATHS}"               "Can't open for reading"
+
+
+# # ********** clang-format ********** 
+print_header "RUN clang-format"
+diff <(clang-format --style=Microsoft ${SRC_PATHS} ${INCLUDE_PATHS} ${TESTS_PATHS}) <(cat ${SRC_PATHS} ${INCLUDE_PATHS} ${TESTS_PATHS}) || exit 1
+
 print_header "SUCCESS"

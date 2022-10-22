@@ -1,7 +1,7 @@
+#include "fib.h"
 #include <iostream>
 
-#include "fib.h"
-
-int main() {
-    std::printf("F8 = %d\n", fib(8));
+int main()
+{
+    printf("F8 = %d\n", fib(8));
 }
