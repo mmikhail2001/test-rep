@@ -1,3 +1,4 @@
+#include <iostream>
 #include "fib.h"
 
 int fib(int n) {
@@ -6,4 +7,9 @@ int fib(int n) {
         return n;
     }
     return fib(n - 1) + fib(n - 2);
+}
+
+void foo()
+{
+    std::cout << "hello" << std::endl;
 }
