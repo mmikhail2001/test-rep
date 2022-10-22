@@ -3,13 +3,13 @@ on: push
 jobs:
   check:
     runs-on: ubuntu-latest
-    container: andeo1812/gcc_check_gtest
+    container: mikhail2001/young_devs_image
     steps:
       - uses: actions/checkout@v2 
       - run: make check || exit 0
   build:
     runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    container: mikhail2001/young_devs_image
     # needs: [check]
     steps:
     - uses: actions/checkout@v2 
@@ -21,12 +21,10 @@ jobs:
         path: build/fib
   test:
     runs-on: ubuntu-latest
-    container: leshiy1295/gcc_linters_valgrind_cmake_gtest
+    container: mikhail2001/young_devs_image
     # needs: [build]
     steps:
       - uses: actions/checkout@v2 
-      - name: install lcov
-        run: apt-get install lcov -y
       - run: make build TEST_OPT=ON
       - run: make run
       - run: make test
@@ -52,6 +50,5 @@ jobs:
           make run
       - name: launch scan-build
         run: |
-          apt-get install clang-tools
           make build
           make scan_build
