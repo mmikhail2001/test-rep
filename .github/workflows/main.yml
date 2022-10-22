@@ -38,9 +38,9 @@ jobs:
           name: coverage-info
           path: build/report
       - name: launch valgrind tests
-        run: valgrind_tests  
+        run: make valgrind_tests  
       - name: launch valgrind target
-        run: valgrind_target  
+        run: make valgrind_target  
       - name: launch sanitizer
         run: |
           make build SANITIZE_OPT=ON
@@ -50,6 +50,11 @@ jobs:
           apt-get install clang-tools
           make build
           make scan_build
+      - name: Upload coverage reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t 9c6b2de0-8ef6-4582-8ed0-0a04e57e756b
 
   # fun:
   #   runs-on: ubuntu-latest
