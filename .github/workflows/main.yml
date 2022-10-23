@@ -39,7 +39,7 @@ jobs:
           path: build/report
       - name: CODECOV PANEL ON README
         run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          wget https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           ./codecov -t ${{ secrets.token_codecov }}
       - name: GO VALGRIND TESTS
